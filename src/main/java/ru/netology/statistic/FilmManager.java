@@ -1,47 +1,48 @@
 package ru.netology.statistic;
 
-import java.util.ArrayList;
-
 public class FilmManager {
 
-    private ArrayList<Film> films = new ArrayList<>();
-
+    private Film[] films;
     private int filmCount;
+    private int currentCount = 0;
 
     public FilmManager(int filmCount) {
+        films = new Film[0];
         this.filmCount = filmCount;
     }
 
     public FilmManager() {
+        films = new Film[0];
         filmCount = 10;
     }
 
     public void add(Film film){
-        films.add(0,film);
+        Film[] copy = new Film[++currentCount];
+        copy[currentCount-1] = film;
+        for (int i = 0; i < currentCount-1; i++){
+            copy[i] = films[i];
+        }
+        films = copy;
 
     }
 
     public Film[] findAll(){
-        int resultLength = films.size();
-        Film[] result = new Film[resultLength];
-        for (int i = 0; i < films.size(); i++){
-            result[i] = films.get(i);
-        }
-        return result;
+        return films;
     }
 
     public Film[] findLast(){
         int resultLength;
-        Film[] result;
-        if (films.size() < filmCount) {
-            resultLength = films.size();
+        if (currentCount < filmCount) {
+            resultLength = currentCount;
         }
         else{
             resultLength = filmCount;
         }
-        result = new Film[resultLength];
-        for (int i = 0; i < resultLength; i++){
-            result[i] = films.get(i);
+        Film[] result = new Film[resultLength];
+        int startIndex = currentCount - resultLength - 1;
+        int index = 0;
+        for (int i = startIndex; i < currentCount-1; i++){
+            result[index++] = films[i];
         }
 
         return result;
