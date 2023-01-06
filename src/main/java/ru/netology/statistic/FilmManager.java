@@ -16,32 +16,31 @@ public class FilmManager {
         filmCount = 10;
     }
 
-    public void add(Film film){
+    public void add(Film film) {
         Film[] copy = new Film[++currentCount];
-        copy[currentCount-1] = film;
-        for (int i = 0; i < currentCount-1; i++){
+        copy[currentCount - 1] = film;
+        for (int i = 0; i < currentCount - 1; i++) {
             copy[i] = films[i];
         }
         films = copy;
 
     }
 
-    public Film[] findAll(){
+    public Film[] findAll() {
         return films;
     }
 
-    public Film[] findLast(){
+    public Film[] findLast() {
         int resultLength;
         if (currentCount < filmCount) {
             resultLength = currentCount;
-        }
-        else{
+        } else {
             resultLength = filmCount;
         }
         Film[] result = new Film[resultLength];
         int startIndex = currentCount - resultLength - 1;
         int index = 0;
-        for (int i = startIndex; i < currentCount-1; i++){
+        for (int i = startIndex; i < currentCount - 1; i++) {
             result[index++] = films[i];
         }
 
